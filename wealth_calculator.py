@@ -33,10 +33,37 @@ def calculate_future_income():
     print(f"You will have ${total_income} income in {months_passed} months.")
 
 
+def calculate_financing_purchase():
+    purchase_amount = float(input("What is the cost of purchase? : "))
+    checks_per_month = float(input("How much money do you earn per month? : "))
+    payments = float(input("How much do you want to pay each month? : "))
+
+    high_payment = checks_per_month * 0.5
+    user_percentage = (payments/checks_per_month) * 100
+    minimum_payment = checks_per_month * 0.2
+
+    def calculate_months(payment, amount):
+        return (amount // payment) + (1 if amount % payment > 0 else 0)
+
+    months_high = calculate_months(high_payment, purchase_amount)
+    months_standard = calculate_months(payments, purchase_amount)
+    months_minimum = calculate_months(minimum_payment, purchase_amount)
+
+    print(f"It will take you {months_high} months or {months_high/12:.2f} years to pay off debt with payments of "
+          f"${high_payment:,.2f}, 50% of your monthly income.")
+    print(f"It will take you {months_standard} months or {months_standard/12:.2f} years to pay off debt with payments "
+          f"of ${payments:,.2f}, {user_percentage:.0f}% of your monthly income.")
+    print(f"It will take you {months_minimum} months or {months_minimum/12:.2f} years to pay off debt with payments of "
+          f"${minimum_payment:,.2f}, 20% of your monthly income.")
+
+
 def main():
-    program = input("Which program do you want to run? (returns/freedom/future): ")
+    program = input("Which program do you want to run? (returns/freedom/future/finance): ")
     if program == "future":
         calculate_future_income()
+        return 0
+    if program == "finance":
+        calculate_financing_purchase()
         return 0
     try:
         current_wealth = float(input("What is the current wealth: "))
