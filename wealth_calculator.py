@@ -23,13 +23,25 @@ def calculate_years_till_freedom(current_wealth, rate_of_return, monthly_savings
             return 0
 
 
+def calculate_future_income():
+    money_right_now = float(input("How much money do you have now? : "))
+    checks = float(input("how much do you earn every month? : "))
+    months_passed = int(input("how many months ahead do you want to see? : "))
+
+    future_income = checks * months_passed
+    total_income = money_right_now + future_income
+    print(f"You will have ${total_income} income in {months_passed} months.")
+
+
 def main():
-    program = input("Which program do you want to run? (returns or freedom): ")
+    program = input("Which program do you want to run? (returns/freedom/future): ")
+    if program == "future":
+        calculate_future_income()
+        return 0
     try:
         current_wealth = float(input("What is the current wealth: "))
         rate_of_return = float(input("What is the rate of return (%): "))
         monthly_savings = float(input("What is the monthly savings: "))
-
     except ValueError:
         print("That's not a number!")
         sys.exit()
